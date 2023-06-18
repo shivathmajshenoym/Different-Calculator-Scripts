@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Currency Converter</title>
+  <style>
+    /* Add some basic styles for the converter */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      border-radius: 3px;
+      border: 1px solid #ccc;
+    }
+
+    select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 3px;
+      border: 1px solid #ccc;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      padding: 8px;
+      border-radius: 3px;
+      border: none;
+      background-color: #4caf50;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    .result {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #f1f1f1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Currency Converter</h2>
+    <div class="form-group">
+      <label for="amount">Amount:</label>
+      <input type="number" id="amount" placeholder="Enter amount">
+    </div>
+    <div class="form-group">
+      <label for="from">From:</label>
+      <select id="from">
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="GBP">GBP</option>
+        <!-- Add more currency options as needed -->
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="to">To:</label>
+      <select id="to">
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="GBP">GBP</option>
+        <!-- Add more currency options as needed -->
+      </select>
+    </div>
+    <input type="submit" value="Convert" onclick="convertCurrency()">
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function convertCurrency() {
+      // Get the input values
+      var amount = parseFloat(document.getElementById("amount").value);
+      var from = document.getElementById("from").value;
+      var to = document.getElementById("to").value;
+
+      // Make an API request to get the exchange rate
+      var url = "https://api.exchangerate-api.com/v4/latest/" + from;
+      fetch(url)
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          // Calculate the converted amount
+          var rate = data.rates[to];
+          var convertedAmount = amount * rate;
+
+          // Display the result
+          document.getElementById("result").innerHTML =
+            amount.toFixed(2) + " " + from + " = " + convertedAmount.toFixed(2) + " " + to;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+  </script>
+</body>
+</html>

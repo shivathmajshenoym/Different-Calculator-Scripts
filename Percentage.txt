@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Percentage Calculator</title>
+  <style>
+    /* Add some basic styles for the calculator */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      border-radius: 3px;
+      border: 1px solid #ccc;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      padding: 8px;
+      border-radius: 3px;
+      border: none;
+      background-color: #4caf50;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    .result {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #f1f1f1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Percentage Calculator</h2>
+    <div class="form-group">
+      <label for="number">Number:</label>
+      <input type="number" id="number" placeholder="Enter a number">
+    </div>
+    <div class="form-group">
+      <label for="percentage">Percentage (%):</label>
+      <input type="number" id="percentage" placeholder="Enter a percentage">
+    </div>
+    <input type="submit" value="Calculate" onclick="calculatePercentage()">
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function calculatePercentage() {
+      // Get the input values
+      var number = parseFloat(document.getElementById("number").value);
+      var percentage = parseFloat(document.getElementById("percentage").value);
+
+      // Calculate the result
+      var result = (number * percentage) / 100;
+
+      // Display the result
+      document.getElementById("result").innerHTML = "Result: " + result.toFixed(2);
+    }
+  </script>
+</body>
+</html>

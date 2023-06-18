@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mortgage Calculator</title>
+  <style>
+    /* Add some basic styles for the calculator */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="number"],
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      border-radius: 3px;
+      border: 1px solid #ccc;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      padding: 8px;
+      border-radius: 3px;
+      border: none;
+      background-color: #4caf50;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    .result {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #f1f1f1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Mortgage Calculator</h2>
+    <div class="form-group">
+      <label for="loanAmount">Loan Amount ($):</label>
+      <input type="number" id="loanAmount" placeholder="Enter loan amount">
+    </div>
+    <div class="form-group">
+      <label for="interestRate">Interest Rate (%):</label>
+      <input type="number" id="interestRate" placeholder="Enter interest rate">
+    </div>
+    <div class="form-group">
+      <label for="loanTerm">Loan Term (years):</label>
+      <input type="number" id="loanTerm" placeholder="Enter loan term">
+    </div>
+    <input type="submit" value="Calculate" onclick="calculateMortgage()">
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function calculateMortgage() {
+      // Get the input values
+      var loanAmount = parseFloat(document.getElementById("loanAmount").value);
+      var interestRate = parseFloat(document.getElementById("interestRate").value);
+      var loanTerm = parseInt(document.getElementById("loanTerm").value);
+
+      // Perform the mortgage calculation
+      var monthlyInterest = (interestRate / 100) / 12;
+      var totalPayments = loanTerm * 12;
+      var mortgage =
+        (loanAmount * monthlyInterest) /
+        (1 - Math.pow(1 + monthlyInterest, -totalPayments));
+
+      // Display the result
+      document.getElementById("result").innerHTML =
+        "Monthly Mortgage Payment: $" + mortgage.toFixed(2);
+    }
+  </script>
+</body>
+</html>

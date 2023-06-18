@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Retirement Calculator</title>
+  <style>
+    /* Add some basic styles for the calculator */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      border-radius: 3px;
+      border: 1px solid #ccc;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      padding: 8px;
+      border-radius: 3px;
+      border: none;
+      background-color: #4caf50;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    .result {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #f1f1f1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Retirement Calculator</h2>
+    <div class="form-group">
+      <label for="currentAge">Current Age:</label>
+      <input type="number" id="currentAge" placeholder="Enter your current age">
+    </div>
+    <div class="form-group">
+      <label for="retirementAge">Desired Retirement Age:</label>
+      <input type="number" id="retirementAge" placeholder="Enter your desired retirement age">
+    </div>
+    <div class="form-group">
+      <label for="currentSavings">Current Savings ($):</label>
+      <input type="number" id="currentSavings" placeholder="Enter your current savings">
+    </div>
+    <div class="form-group">
+      <label for="expectedExpenses">Expected Expenses ($/year):</label>
+      <input type="number" id="expectedExpenses" placeholder="Enter your expected expenses per year">
+    </div>
+    <input type="submit" value="Calculate" onclick="calculateRetirement()">
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function calculateRetirement() {
+      // Get the input values
+      var currentAge = parseInt(document.getElementById("currentAge").value);
+      var retirementAge = parseInt(document.getElementById("retirementAge").value);
+      var currentSavings = parseFloat(document.getElementById("currentSavings").value);
+      var expectedExpenses = parseFloat(document.getElementById("expectedExpenses").value);
+
+      // Calculate the savings needed for retirement
+      var yearsUntilRetirement = retirementAge - currentAge;
+      var savingsNeeded = expectedExpenses * yearsUntilRetirement;
+
+      // Calculate the additional savings required
+      var additionalSavings = savingsNeeded - currentSavings;
+
+      // Display the result
+      var resultString = "Additional Savings Required: $" + additionalSavings.toFixed(2);
+      if (additionalSavings < 0) {
+        resultString = "You are on track for retirement!";
+      }
+      document.getElementById("result").innerHTML = resultString;
+    }
+  </script>
+</body>
+</html>

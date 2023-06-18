@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Unit Converter</title>
+  <style>
+    /* Add some basic styles for the converter */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      border-radius: 3px;
+      border: 1px solid #ccc;
+    }
+
+    select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 3px;
+      border: 1px solid #ccc;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      padding: 8px;
+      border-radius: 3px;
+      border: none;
+      background-color: #4caf50;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    .result {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #f1f1f1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Unit Converter</h2>
+    <div class="form-group">
+      <label for="value">Value:</label>
+      <input type="number" id="value" placeholder="Enter a value">
+    </div>
+    <div class="form-group">
+      <label for="fromUnit">From:</label>
+      <select id="fromUnit">
+        <option value="meter">Meter</option>
+        <option value="kilometer">Kilometer</option>
+        <option value="mile">Mile</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="toUnit">To:</label>
+      <select id="toUnit">
+        <option value="meter">Meter</option>
+        <option value="kilometer">Kilometer</option>
+        <option value="mile">Mile</option>
+      </select>
+    </div>
+    <input type="submit" value="Convert" onclick="convertUnits()">
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function convertUnits() {
+      // Get the input values
+      var value = parseFloat(document.getElementById("value").value);
+      var fromUnit = document.getElementById("fromUnit").value;
+      var toUnit = document.getElementById("toUnit").value;
+
+      // Convert the value to the base unit (meter)
+      var baseValue = convertToMeter(value, fromUnit);
+
+      // Convert the base value to the target unit
+      var result = convertFromMeter(baseValue, toUnit);
+
+      // Display the result
+      document.getElementById("result").innerHTML = "Result: " + result.toFixed(2) + " " + toUnit;
+    }
+
+    function convertToMeter(value, unit) {
+      // Convert the value to meters based on the unit
+      switch (unit) {
+        case "kilometer":
+          return value * 1000;
+        case "mile":
+          return value * 1609.34;
+        default:
+          return value;
+      }
+    }
+
+    function convertFromMeter(value, unit) {
+      // Convert the value from meters to the target unit
+      switch (unit) {
+        case "kilometer":
+          return value / 1000;
+        case "mile":
+          return value / 1609.34;
+        default:
+          return value;
+      }
+    }
+  </script>
+</body>
+</html>

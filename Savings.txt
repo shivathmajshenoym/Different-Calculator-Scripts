@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Savings Calculator</title>
+  <style>
+    /* Add some basic styles for the calculator */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      border-radius: 3px;
+      border: 1px solid #ccc;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      padding: 8px;
+      border-radius: 3px;
+      border: none;
+      background-color: #4caf50;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    .result {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #f1f1f1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Savings Calculator</h2>
+    <div class="form-group">
+      <label for="initialDeposit">Initial Deposit ($):</label>
+      <input type="number" id="initialDeposit" placeholder="Enter initial deposit">
+    </div>
+    <div class="form-group">
+      <label for="monthlyContributions">Monthly Contributions ($):</label>
+      <input type="number" id="monthlyContributions" placeholder="Enter monthly contributions">
+    </div>
+    <div class="form-group">
+      <label for="interestRate">Interest Rate (%):</label>
+      <input type="number" id="interestRate" placeholder="Enter interest rate">
+    </div>
+    <div class="form-group">
+      <label for="investmentPeriod">Investment Period (years):</label>
+      <input type="number" id="investmentPeriod" placeholder="Enter investment period">
+    </div>
+    <input type="submit" value="Calculate" onclick="calculateSavings()">
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function calculateSavings() {
+      // Get the input values
+      var initialDeposit = parseFloat(document.getElementById("initialDeposit").value);
+      var monthlyContributions = parseFloat(document.getElementById("monthlyContributions").value);
+      var interestRate = parseFloat(document.getElementById("interestRate").value);
+      var investmentPeriod = parseInt(document.getElementById("investmentPeriod").value);
+
+      // Calculate the future value of savings
+      var futureValue = calculateFutureValue(initialDeposit, monthlyContributions, interestRate, investmentPeriod);
+
+      // Display the result
+      document.getElementById("result").innerHTML =
+        "Future Value of Savings: $" + futureValue.toFixed(2);
+    }
+
+    function calculateFutureValue(initialDeposit, monthlyContributions, interestRate, investmentPeriod) {
+      // Convert interest rate to decimal and monthly interest rate
+      var decimalInterestRate = interestRate / 100;
+      var monthlyInterestRate = decimalInterestRate / 12;
+
+      // Calculate future value using the compound interest formula
+      var futureValue = initialDeposit * Math.pow(1 + monthlyInterestRate, investmentPeriod * 12);
+      futureValue += monthlyContributions * ((Math.pow(1 + monthlyInterestRate, investmentPeriod * 12) - 1) / monthlyInterestRate);
+
+      return futureValue;
+    }
+  </script>
+</body>
+</html>
